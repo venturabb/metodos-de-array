@@ -8,21 +8,15 @@ export async function getBuscarLivrosdaAPI() {
   const resposta = await fetch(endpointDaAPI);
   livros = await resposta.json();
 
-  console.log(3);
-  console.log("função fetch");
-  console.log(livros);
-
   const livrosFiltrados = filtrarLivros(livros);
-  console.table(livrosFiltrados);
 
-  let livrosComDesconto = aplicarDesconto(livros);
-
-  livrosComDesconto.forEach((livro) => {
-    // console.table(livro);
-  });
-
-  console.log(5);
-  console.table(livrosComDesconto);
-  console.log(livros);
-  return livrosComDesconto;
+  if (livrosFiltrados) {
+    let livrosComDesconto = aplicarDesconto(livrosFiltrados);
+    console.table(livrosComDesconto);
+    return livrosComDesconto;
+  } else {
+    let livrosComDesconto = aplicarDesconto(livros);
+    console.table(livrosComDesconto);
+    return livrosComDesconto;
+  }
 }
