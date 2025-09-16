@@ -1,8 +1,9 @@
 import { getBuscarLivrosdaAPI } from "./buscarLivrosdaAPI.js";
 
+const livrosNaPagina = document.getElementById("lista-livros");
+
 async function exibirLivrosNaTela() {
   const listaDeLivros = await getBuscarLivrosdaAPI();
-  const livrosNaPagina = document.getElementById("lista-livros");
 
   listaDeLivros.forEach((livro) => {
     livrosNaPagina.innerHTML += `
@@ -36,7 +37,6 @@ async function exibirLivrosNaTela() {
 
 async function gerarContainerLivro() {
   const listaDeLivros = await getBuscarLivrosdaAPI();
-  const livrosNaPagina = document.getElementById("lista-livros");
 
   listaDeLivros.forEach((livro) => {
     const containerNovoLivro = document.createElement("div");
