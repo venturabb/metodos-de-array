@@ -1,8 +1,13 @@
-import getBuscarLivrosdaAPI from "./buscarLivrosdaAPI.js";
+import { getBuscarLivrosdaAPI } from "./buscarLivrosdaAPI.js";
+import { livros } from "./buscarLivrosdaAPI.js";
 
 async function exibirLivrosNaTela() {
   const listaDeLivros = await getBuscarLivrosdaAPI();
-  const livrosNaPagina = document.getElementById("livros");
+  const livrosNaPagina = document.getElementById("lista-livros");
+
+  console.log(6);
+  console.log("inicio fn exibirLivrosNaTela");
+  console.log(livros);
 
   listaDeLivros.forEach((livro) => {
     livrosNaPagina.innerHTML += `
@@ -36,7 +41,11 @@ async function exibirLivrosNaTela() {
 
 async function gerarContainerLivro() {
   const listaDeLivros = await getBuscarLivrosdaAPI();
-  const livrosNaPagina = document.getElementById("livros");
+  const livrosNaPagina = document.getElementById("lista-livros");
+
+  console.log(6);
+  console.log("inicio fn gerarContainerLivro");
+  console.log(livros);
 
   listaDeLivros.forEach((livro) => {
     const containerNovoLivro = document.createElement("div");
@@ -78,9 +87,11 @@ export function rodaFuncaoDeFormaAleatoria() {
   console.log(condicao);
   if (condicao) {
     exibirLivrosNaTela();
+    console.log(2);
     console.log("```````");
   } else {
     gerarContainerLivro();
+    console.log(2);
     console.log("appendChild");
   }
 }
