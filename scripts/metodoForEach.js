@@ -13,7 +13,7 @@ async function exibirLivrosNaTela() {
       ${livro.titulo}
       </h2>
       <p class="livro__descricao">${livro.autor}</p>
-      <p class="livro__preco" id="preco">${livro.preco}</p>
+      <p class="livro__preco" id="preco">R$ ${livro.preco}</p>
       <div class="tags">
         <span class="tag">${livro.categoria}</span>
         </div>
@@ -53,7 +53,7 @@ async function gerarContainerLivro() {
     const precoLivro = document.createElement("p");
     precoLivro.classList.add("livro__preco");
     precoLivro.id = "preco";
-    precoLivro.innerHTML = livro.preco;
+    precoLivro.innerHTML = "R$ " + livro.preco;
     const tagsLivro = document.createElement("div");
     tagsLivro.classList.add("tags");
     const tagIndividual = document.createElement("span");

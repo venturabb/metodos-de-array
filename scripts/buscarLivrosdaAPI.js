@@ -1,15 +1,20 @@
+import aplicarDesconto from "./metodoMap.js";
+
 let livros = [];
 const endpointDaAPI = "https://guilhermeonrails.github.io/casadocodigo/livros.json";
 
 async function getBuscarLivrosdaAPI() {
   const resposta = await fetch(endpointDaAPI);
   livros = await resposta.json();
-  return livros;
-  livros.forEach((livro) => {
+
+  let livrosComDesconto = aplicarDesconto(livros);
+
+  livrosComDesconto.forEach((livro) => {
     console.table(livro);
   });
+
+  return livrosComDesconto;
   // console.table(livros);
-  // new Promise((resolve, reject) => {});
 }
 
 export default getBuscarLivrosdaAPI;
