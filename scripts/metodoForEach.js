@@ -4,9 +4,11 @@ async function exibirLivrosNaTela(listaDeLivros) {
   livrosNaPagina.innerHTML = "";
 
   listaDeLivros.forEach((livro) => {
+    let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);
+
     livrosNaPagina.innerHTML += `
-  <div class="livro">
-      <img class="livro__imagens" src="${livro.imagem}"
+      <div class="livro">
+      <img class="livro__imagens ${livroDisponivel}" src="${livro.imagem}"
       alt="${livro.alt}" />
       <h2 class="livro__titulo">
       ${livro.titulo}
@@ -35,11 +37,19 @@ async function exibirLivrosNaTela(listaDeLivros) {
 
 async function gerarContainerLivro(listaDeLivros) {
   livrosNaPagina.innerHTML = "";
+
   listaDeLivros.forEach((livro) => {
+    let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);
+
     const containerNovoLivro = document.createElement("div");
     containerNovoLivro.classList.add("livro");
     const imagemLivro = document.createElement("img");
     imagemLivro.classList.add("livro__imagens");
+
+    if (livroDisponivel) {
+      imagemLivro.classList.add(livroDisponivel);
+    }
+
     imagemLivro.src = livro.imagem;
     const tituloLivro = document.createElement("h2");
     tituloLivro.classList.add("livro__titulo");
@@ -77,6 +87,14 @@ function rodaFuncaoDeFormaAleatoria(listaDeLivros) {
   } else {
     gerarContainerLivro(listaDeLivros);
     console.log("appendChild");
+  }
+}
+
+function verificaSeLivroEstaDisponivel(qtde) {
+  if (qtde > 0) {
+    return "";
+  } else {
+    return "indisponivel";
   }
 }
 
