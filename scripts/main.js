@@ -27,7 +27,17 @@ function filtrarLivros() {
   const categoriaCerta = this.value;
   console.log(categoriaCerta);
 
-  let livrosFiltrados = livros.filter((livro) => livro.categoria === categoriaCerta);
+  /* let livrosFiltrados = livros.filter((livro) => livro.categoria === categoriaCerta);
+
+   if (categoriaCerta == "disponivel") {
+    livrosFiltrados = livros.filter((livro) => livro.quantidade > 0);
+  } */
+
+  let livrosFiltrados =
+    categoriaCerta == "disponivel"
+      ? livros.filter((livro) => livro.quantidade > 0)
+      : livros.filter((livro) => livro.categoria === categoriaCerta);
+
   console.table(livrosFiltrados);
   rodaFuncaoDeFormaAleatoria(livrosFiltrados);
 }
