@@ -4,11 +4,13 @@ async function exibirLivrosNaTela(listaDeLivros) {
   livrosNaPagina.innerHTML = "";
 
   listaDeLivros.forEach((livro) => {
-    let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);
+    // let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);
+
+    let disponibilidade = livro.quantidade > 0 ? "" : "indisponivel";
 
     livrosNaPagina.innerHTML += `
       <div class="livro">
-      <img class="livro__imagens ${livroDisponivel}" src="${livro.imagem}"
+      <img class="livro__imagens ${disponibilidade}" src="${livro.imagem}"
       alt="${livro.alt}" />
       <h2 class="livro__titulo">
       ${livro.titulo}
@@ -39,15 +41,17 @@ async function gerarContainerLivro(listaDeLivros) {
   livrosNaPagina.innerHTML = "";
 
   listaDeLivros.forEach((livro) => {
-    let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);
+    //  let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);
+
+    let disponibilidade = livro.quantidade > 0 ? "" : "indisponivel";
 
     const containerNovoLivro = document.createElement("div");
     containerNovoLivro.classList.add("livro");
     const imagemLivro = document.createElement("img");
     imagemLivro.classList.add("livro__imagens");
 
-    if (livroDisponivel) {
-      imagemLivro.classList.add(livroDisponivel);
+    if (disponibilidade) {
+      imagemLivro.classList.add(disponibilidade);
     }
 
     imagemLivro.src = livro.imagem;
@@ -90,12 +94,12 @@ function rodaFuncaoDeFormaAleatoria(listaDeLivros) {
   }
 }
 
-function verificaSeLivroEstaDisponivel(qtde) {
+/* function verificaSeLivroEstaDisponivel(qtde) {
   if (qtde > 0) {
     return "";
   } else {
     return "indisponivel";
   }
-}
+} */
 
 export default rodaFuncaoDeFormaAleatoria;
