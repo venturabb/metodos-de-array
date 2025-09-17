@@ -9,11 +9,11 @@ async function exibirLivrosNaTela(listaDeLivros) {
   listaDeLivros.forEach((livro) => {
     // let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);
 
-    let disponibilidade = livro.quantidade > 0 ? "" : "indisponivel";
+    let estaDisponivelOuNao = livro.quantidade > 0 ? "" : "indisponivel";
 
     livrosNaPagina.innerHTML += `
     <div class="livro">
-    <img class="livro__imagens ${disponibilidade}" src="${livro.imagem}"
+    <img class="livro__imagens ${estaDisponivelOuNao}" src="${livro.imagem}"
     alt="${livro.alt}" />
     <h2 class="livro__titulo">
     ${livro.titulo}
@@ -47,15 +47,15 @@ async function gerarContainerLivro(listaDeLivros) {
   listaDeLivros.forEach((livro) => {
     //  let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);
 
-    let disponibilidade = livro.quantidade > 0 ? "" : "indisponivel";
+    let estaDisponivelOuNao = livro.quantidade > 0 ? "" : "indisponivel";
 
     const containerNovoLivro = document.createElement("div");
     containerNovoLivro.classList.add("livro");
     const imagemLivro = document.createElement("img");
     imagemLivro.classList.add("livro__imagens");
 
-    if (disponibilidade) {
-      imagemLivro.classList.add(disponibilidade);
+    if (estaDisponivelOuNao) {
+      imagemLivro.classList.add(estaDisponivelOuNao);
     }
 
     imagemLivro.src = livro.imagem;

@@ -1,5 +1,6 @@
 import rodaFuncaoDeFormaAleatoria from "./metodoForEach.js";
 import aplicarDesconto from "./metodoMap.js";
+import calcularValorTotalLivrosDisponiveis from "./metodoReduce.js";
 
 const valorTotalLivrosNaPagina = document.getElementById("valor_total_livros_disponiveis");
 console.log(valorTotalLivrosNaPagina);
@@ -16,6 +17,8 @@ async function getBuscarLivrosdaAPI() {
   rodaFuncaoDeFormaAleatoria(livrosComDesconto);
 }
 
+getBuscarLivrosdaAPI();
+
 const botoes = document.querySelectorAll(".btn");
 
 botoes.forEach((botao) => botao.addEventListener("click", filtrarLivros));
@@ -31,10 +34,10 @@ function filtrarLivros() {
   console.log(categoriaCerta);
 
   /* let livrosFiltrados = livros.filter((livro) => livro.categoria === categoriaCerta);
-
-   if (categoriaCerta == "disponivel") {
-    livrosFiltrados = livros.filter((livro) => livro.quantidade > 0);
-  } */
+    
+    if (categoriaCerta == "disponivel") {
+        livrosFiltrados = livros.filter((livro) => livro.quantidade > 0);
+        } */
 
   let livrosFiltrados =
     categoriaCerta == "disponivel" ? filtrarPorDisponibilidade() : filtrarPorCategoria(categoriaCerta);
@@ -43,6 +46,14 @@ function filtrarLivros() {
   rodaFuncaoDeFormaAleatoria(livrosFiltrados);
 
   if (categoriaCerta == "disponivel") {
+    function exibirValorTotalLivros() {
+      valorTotalLivrosNaPagina.innerHTML = `
+          <div class="livros__disponiveis">
+          <p>Todos os livros disponíveis por R$ <span id="valor">${valorTotalLivrosDisponiveis}</span></p>
+          </div>`;
+    }
+
+    const valorTotalLivrosDisponiveis = calcularValorTotalLivrosDisponiveis(livrosFiltrados);
     exibirValorTotalLivros();
   }
 }
@@ -55,13 +66,6 @@ function filtrarPorCategoria(categoria) {
   return livros.filter((livro) => livro.categoria === categoria);
 }
 
-function exibirValorTotalLivros() {
-  valorTotalLivrosNaPagina.innerHTML = `
-    <div class="livros__disponiveis">
-        <p>Todos os livros disponíveis por R$ <span id="valor">299,00</span></p>
-    </div>`;
-}
-
 let botaoOrdenacao = document.querySelector(".btn-ordenacao");
 
 botaoOrdenacao.addEventListener("click", ordenarLivrosPorPreco);
@@ -70,5 +74,3 @@ function ordenarLivrosPorPreco() {
   let livrosOrdenados = livros.sort((a, b) => a.preco - b.preco);
   rodaFuncaoDeFormaAleatoria(livrosOrdenados);
 }
-
-getBuscarLivrosdaAPI();
