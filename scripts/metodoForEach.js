@@ -1,8 +1,20 @@
-import { getBuscarLivrosdaAPI } from "./main.js";
+import aplicarDesconto from "./metodoMap.js";
 
 const livrosNaPagina = document.getElementById("lista-livros");
 
-async function exibirLivrosNaTela() {
+export let livros = [];
+const endpointDaAPI = "https://guilhermeonrails.github.io/casadocodigo/livros.json";
+
+async function getBuscarLivrosdaAPI() {
+  const resposta = await fetch(endpointDaAPI);
+  livros = await resposta.json();
+
+  let livrosComDesconto = aplicarDesconto(livros);
+  console.table(livrosComDesconto);
+  return livrosComDesconto;
+}
+
+export async function exibirLivrosNaTela() {
   const listaDeLivros = await getBuscarLivrosdaAPI();
 
   listaDeLivros.forEach((livro) => {
@@ -35,7 +47,7 @@ async function exibirLivrosNaTela() {
     </div>
     */
 
-async function gerarContainerLivro() {
+export async function gerarContainerLivro() {
   const listaDeLivros = await getBuscarLivrosdaAPI();
 
   listaDeLivros.forEach((livro) => {
@@ -69,16 +81,4 @@ async function gerarContainerLivro() {
 
     livrosNaPagina.appendChild(containerNovoLivro);
   });
-}
-
-export function rodaFuncaoDeFormaAleatoria() {
-  const condicao = Math.random() < 0.5;
-  console.log(condicao);
-  if (condicao) {
-    exibirLivrosNaTela();
-    console.log("```````");
-  } else {
-    gerarContainerLivro();
-    console.log("appendChild");
-  }
 }
