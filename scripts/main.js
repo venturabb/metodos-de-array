@@ -1,7 +1,7 @@
 import rodaFuncaoDeFormaAleatoria from "./metodoForEach.js";
 import aplicarDesconto from "./metodoMap.js";
 
-let livros = [];
+export let livros = [];
 const endpointDaAPI = "https://guilhermeonrails.github.io/casadocodigo/livros.json";
 
 async function getBuscarLivrosdaAPI() {
@@ -9,7 +9,7 @@ async function getBuscarLivrosdaAPI() {
   livros = await resposta.json();
 
   let livrosComDesconto = aplicarDesconto(livros);
-  console.table(livrosComDesconto);
+  // console.table(livrosComDesconto);
   rodaFuncaoDeFormaAleatoria(livrosComDesconto);
 }
 
@@ -32,6 +32,13 @@ function filtrarLivros() {
   rodaFuncaoDeFormaAleatoria(livrosFiltrados);
 }
 
-getBuscarLivrosdaAPI();
+let botaoOrdenacao = document.querySelector(".btn-ordenacao");
 
-filtrarLivros();
+botaoOrdenacao.addEventListener("click", ordenarLivrosPorPreco);
+
+function ordenarLivrosPorPreco() {
+  let livrosOrdenados = livros.sort((a, b) => a.preco - b.preco);
+  rodaFuncaoDeFormaAleatoria(livrosOrdenados);
+}
+
+getBuscarLivrosdaAPI();
