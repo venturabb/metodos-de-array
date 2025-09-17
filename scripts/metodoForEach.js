@@ -1,4 +1,4 @@
-import { getBuscarLivrosdaAPI } from "./buscarLivrosdaAPI.js";
+import { getBuscarLivrosdaAPI } from "./main.js";
 
 const livrosNaPagina = document.getElementById("lista-livros");
 

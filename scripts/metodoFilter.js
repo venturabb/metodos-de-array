@@ -1,4 +1,4 @@
-import { livros } from "./buscarLivrosdaAPI.js";
+import { livros } from "./main.js";
 
 const botoes = document.querySelectorAll(".btn");
 
