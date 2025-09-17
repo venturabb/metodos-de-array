@@ -1,7 +1,10 @@
 const livrosNaPagina = document.getElementById("lista-livros");
 
+const valorTotalLivrosNaPagina = document.getElementById("valor_total_livros_disponiveis");
+
 async function exibirLivrosNaTela(listaDeLivros) {
   livrosNaPagina.innerHTML = "";
+  valorTotalLivrosNaPagina.innerHTML = "";
 
   listaDeLivros.forEach((livro) => {
     // let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);
@@ -9,16 +12,16 @@ async function exibirLivrosNaTela(listaDeLivros) {
     let disponibilidade = livro.quantidade > 0 ? "" : "indisponivel";
 
     livrosNaPagina.innerHTML += `
-      <div class="livro">
-      <img class="livro__imagens ${disponibilidade}" src="${livro.imagem}"
-      alt="${livro.alt}" />
-      <h2 class="livro__titulo">
-      ${livro.titulo}
-      </h2>
-      <p class="livro__descricao">${livro.autor}</p>
-      <p class="livro__preco" id="preco">R$ ${livro.preco}</p>
-      <div class="tags">
-      <span class="tag">${livro.categoria}</span>
+    <div class="livro">
+    <img class="livro__imagens ${disponibilidade}" src="${livro.imagem}"
+    alt="${livro.alt}" />
+    <h2 class="livro__titulo">
+    ${livro.titulo}
+    </h2>
+    <p class="livro__descricao">${livro.autor}</p>
+    <p class="livro__preco" id="preco">R$ ${livro.preco}</p>
+    <div class="tags">
+    <span class="tag">${livro.categoria}</span>
       </div>
       </div>`;
   });
@@ -32,13 +35,14 @@ async function exibirLivrosNaTela(listaDeLivros) {
   <p class="livro__descricao">Autor</p>
   <p class="livro__preco" id="preco">Preço</p>
   <div class="tags">
-        <span class="tag">Tag</span>
-        </div>
+  <span class="tag">Tag</span>
+  </div>
     </div>
     */
 
 async function gerarContainerLivro(listaDeLivros) {
   livrosNaPagina.innerHTML = "";
+  valorTotalLivrosNaPagina.innerHTML = "";
 
   listaDeLivros.forEach((livro) => {
     //  let livroDisponivel = verificaSeLivroEstaDisponivel(livro.quantidade);

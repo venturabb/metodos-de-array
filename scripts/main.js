@@ -1,6 +1,9 @@
 import rodaFuncaoDeFormaAleatoria from "./metodoForEach.js";
 import aplicarDesconto from "./metodoMap.js";
 
+const valorTotalLivrosNaPagina = document.getElementById("valor_total_livros_disponiveis");
+console.log(valorTotalLivrosNaPagina);
+
 export let livros = [];
 const endpointDaAPI = "https://guilhermeonrails.github.io/casadocodigo/livros.json";
 
@@ -34,12 +37,29 @@ function filtrarLivros() {
   } */
 
   let livrosFiltrados =
-    categoriaCerta == "disponivel"
-      ? livros.filter((livro) => livro.quantidade > 0)
-      : livros.filter((livro) => livro.categoria === categoriaCerta);
+    categoriaCerta == "disponivel" ? filtrarPorDisponibilidade() : filtrarPorCategoria(categoriaCerta);
 
   console.table(livrosFiltrados);
   rodaFuncaoDeFormaAleatoria(livrosFiltrados);
+
+  if (categoriaCerta == "disponivel") {
+    exibirValorTotalLivros();
+  }
+}
+
+function filtrarPorDisponibilidade() {
+  return livros.filter((livro) => livro.quantidade > 0);
+}
+
+function filtrarPorCategoria(categoria) {
+  return livros.filter((livro) => livro.categoria === categoria);
+}
+
+function exibirValorTotalLivros() {
+  valorTotalLivrosNaPagina.innerHTML = `
+    <div class="livros__disponiveis">
+        <p>Todos os livros disponíveis por R$ <span id="valor">299,00</span></p>
+    </div>`;
 }
 
 let botaoOrdenacao = document.querySelector(".btn-ordenacao");
