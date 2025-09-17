@@ -1,18 +1,37 @@
-import { exibirLivrosNaTela, gerarContainerLivro } from "./metodoForEach.js";
-// import filtrarLivros from "./metodoFilter.js";
+import rodaFuncaoDeFormaAleatoria from "./metodoForEach.js";
+import aplicarDesconto from "./metodoMap.js";
 
-function rodaFuncaoDeFormaAleatoria() {
-  const condicao = Math.random() < 0.5;
-  console.log(condicao);
-  if (condicao) {
-    exibirLivrosNaTela();
-    console.log("```````");
-  } else {
-    gerarContainerLivro();
-    console.log("appendChild");
-  }
+let livros = [];
+const endpointDaAPI = "https://guilhermeonrails.github.io/casadocodigo/livros.json";
+
+async function getBuscarLivrosdaAPI() {
+  const resposta = await fetch(endpointDaAPI);
+  livros = await resposta.json();
+
+  let livrosComDesconto = aplicarDesconto(livros);
+  console.table(livrosComDesconto);
+  rodaFuncaoDeFormaAleatoria(livrosComDesconto);
 }
 
-rodaFuncaoDeFormaAleatoria();
+const botoes = document.querySelectorAll(".btn");
 
-//
+botoes.forEach((botao) => botao.addEventListener("click", filtrarLivros));
+
+function filtrarLivros() {
+  if (this) {
+    console.log(this);
+  } else {
+    return;
+  }
+
+  const categoriaCerta = this.value;
+  console.log(categoriaCerta);
+
+  let livrosFiltrados = livros.filter((livro) => livro.categoria === categoriaCerta);
+  console.table(livrosFiltrados);
+  rodaFuncaoDeFormaAleatoria(livrosFiltrados);
+}
+
+getBuscarLivrosdaAPI();
+
+filtrarLivros();

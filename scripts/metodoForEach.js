@@ -1,55 +1,40 @@
-import aplicarDesconto from "./metodoMap.js";
-
 const livrosNaPagina = document.getElementById("lista-livros");
 
-export let livros = [];
-const endpointDaAPI = "https://guilhermeonrails.github.io/casadocodigo/livros.json";
-
-async function getBuscarLivrosdaAPI() {
-  const resposta = await fetch(endpointDaAPI);
-  livros = await resposta.json();
-
-  let livrosComDesconto = aplicarDesconto(livros);
-  console.table(livrosComDesconto);
-  return livrosComDesconto;
-}
-
-export async function exibirLivrosNaTela() {
-  const listaDeLivros = await getBuscarLivrosdaAPI();
+async function exibirLivrosNaTela(listaDeLivros) {
+  livrosNaPagina.innerHTML = "";
 
   listaDeLivros.forEach((livro) => {
     livrosNaPagina.innerHTML += `
-    <div class="livro">
+  <div class="livro">
       <img class="livro__imagens" src="${livro.imagem}"
-        alt="${livro.alt}" />
+      alt="${livro.alt}" />
       <h2 class="livro__titulo">
       ${livro.titulo}
       </h2>
       <p class="livro__descricao">${livro.autor}</p>
       <p class="livro__preco" id="preco">R$ ${livro.preco}</p>
       <div class="tags">
-        <span class="tag">${livro.categoria}</span>
-        </div>
-    </div>`;
+      <span class="tag">${livro.categoria}</span>
+      </div>
+      </div>`;
   });
 }
 
 /* A estrutura é:
-
-<div class="livro">
-      <img class="livro__imagens indisponivel" src="" alt="" />
-      <h2 class="livro__titulo">Título</h2>
-      <p class="livro__descricao">Autor</p>
-      <p class="livro__preco" id="preco">Preço</p>
-      <div class="tags">
+  
+  <div class="livro">
+  <img class="livro__imagens indisponivel" src="" alt="" />
+  <h2 class="livro__titulo">Título</h2>
+  <p class="livro__descricao">Autor</p>
+  <p class="livro__preco" id="preco">Preço</p>
+  <div class="tags">
         <span class="tag">Tag</span>
         </div>
     </div>
     */
 
-export async function gerarContainerLivro() {
-  const listaDeLivros = await getBuscarLivrosdaAPI();
-
+async function gerarContainerLivro(listaDeLivros) {
+  livrosNaPagina.innerHTML = "";
   listaDeLivros.forEach((livro) => {
     const containerNovoLivro = document.createElement("div");
     containerNovoLivro.classList.add("livro");
@@ -82,3 +67,17 @@ export async function gerarContainerLivro() {
     livrosNaPagina.appendChild(containerNovoLivro);
   });
 }
+
+function rodaFuncaoDeFormaAleatoria(listaDeLivros) {
+  const condicao = Math.random() < 0.5;
+  console.log(condicao);
+  if (condicao) {
+    exibirLivrosNaTela(listaDeLivros);
+    console.log("```````");
+  } else {
+    gerarContainerLivro(listaDeLivros);
+    console.log("appendChild");
+  }
+}
+
+export default rodaFuncaoDeFormaAleatoria;
